@@ -1,7 +1,9 @@
 package com.eco.platform.config;
 
 import com.eco.platform.model.User;
+import com.eco.platform.model.Project;
 import com.eco.platform.repository.UserRepository;
+import com.eco.platform.repository.ProjectRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,9 +18,8 @@ public class DataInitializer {
     }
 
     @Bean
-    CommandLineRunner initDatabase(UserRepository userRepository) {
+    CommandLineRunner initDatabase(UserRepository userRepository, ProjectRepository projectRepository) {
         return args -> {
-
             if (userRepository.count() == 0) {
                 User user = new User();
                 user.setName("Володимир");
@@ -26,14 +27,26 @@ public class DataInitializer {
                 user.setPassword(passwordEncoder().encode("password"));
                 user.setRole("USER");
                 user.setAvatarUrl("https://placehold.co/200");
-
                 userRepository.save(user);
-                System.out.println("-----------------------------------------");
-                System.out.println("✅ БАЗА ДАНИХ ГОТОВА!");
-                System.out.println("Логін: test@eco.com");
-                System.out.println("Пароль: password");
-                System.out.println("-----------------------------------------");
             }
+
+            if (projectRepository.count() == 0) {
+                Project project = new Project();
+                project.setTitle("Очищення парку");
+                project.setShortDescription("Збираємо волонтерів для прибирання сміття");
+                project.setImageUrl("https://picsum.photos/400/300");
+                project.setCity("Київ");
+                project.setGoalAmount(10000.0);
+                project.setCurrentAmount(1500.0);
+                project.setStatus("ACTIVE");
+
+                projectRepository.save(project);
+            }
+
+            System.out.println("-----------------------------------------");
+            System.out.println("✅ БАЗА ДАНИХ ГОТОВА ТА ЗАПОВНЕНА!");
+            System.out.println("Логін: test@eco.com | Пароль: password");
+            System.out.println("-----------------------------------------");
         };
     }
 }
