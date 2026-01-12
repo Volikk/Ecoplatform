@@ -1,7 +1,7 @@
 package com.eco.platform.config;
 
+import com.eco.platform.model.EcoProject;
 import com.eco.platform.model.User;
-import com.eco.platform.model.Project;
 import com.eco.platform.repository.UserRepository;
 import com.eco.platform.repository.ProjectRepository;
 import org.springframework.boot.CommandLineRunner;
@@ -31,7 +31,7 @@ public class DataInitializer {
             }
 
             if (projectRepository.count() == 0) {
-                Project project = new Project();
+                EcoProject project = new EcoProject();
                 project.setTitle("Очищення парку");
                 project.setShortDescription("Збираємо волонтерів для прибирання сміття");
                 project.setImageUrl("https://picsum.photos/400/300");
