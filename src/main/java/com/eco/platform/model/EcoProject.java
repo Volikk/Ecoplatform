@@ -23,6 +23,7 @@ public class EcoProject {
     private Double goalAmount;
     private Double currentAmount = 0.0;
     private String status;
+    private String category;
 
     public EcoProject() {}
 
@@ -49,4 +50,11 @@ public class EcoProject {
 
     public void setStatus(String status) { this.status = status; }
     public String getStatus() { return status; }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+    public String getCategory() {
+        return category;
+    }
 }

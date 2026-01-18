@@ -34,6 +34,7 @@ public class DataInitializer {
                 EcoProject project = new EcoProject();
                 project.setTitle("Очищення парку");
                 project.setShortDescription("Збираємо волонтерів для прибирання сміття");
+                project.setCategory("Екологія");
                 project.setImageUrl("https://picsum.photos/400/300");
                 project.setCity("Київ");
                 project.setGoalAmount(10000.0);
