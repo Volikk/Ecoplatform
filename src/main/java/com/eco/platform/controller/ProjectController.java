@@ -3,10 +3,7 @@ package com.eco.platform.controller;
 import com.eco.platform.model.EcoProject;
 import com.eco.platform.repository.ProjectRepository;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
@@ -20,7 +17,11 @@ public class ProjectController {
     }
 
     @GetMapping
-    public List<EcoProject> getAllProjects() {
+    public List<EcoProject> getProjects(
+            @RequestParam(required = false) String category,
+            @RequestParam(required = false) String city,
+            @RequestParam(required = false) String status) {
+
         return projectRepository.findAll();
     }
 

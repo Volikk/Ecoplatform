@@ -39,4 +39,20 @@ public class Donation {
     public LocalDateTime getCreatedAt() {
         return createdAt;
     }
+
+    public void setAmount(Double amount) {
+        this.amount = amount;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public void setProject(EcoProject project) {
+        this.project = project;
+    }
+
+    public void setCreatedAt(LocalDateTime createdAt) {
+        this.createdAt = createdAt;
+    }
 }

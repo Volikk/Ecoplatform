@@ -1,7 +1,9 @@
 package com.eco.platform.config;
 
+import com.eco.platform.model.Donation;
 import com.eco.platform.model.EcoProject;
 import com.eco.platform.model.User;
+import com.eco.platform.repository.DonationRepository;
 import com.eco.platform.repository.UserRepository;
 import com.eco.platform.repository.ProjectRepository;
 import org.springframework.boot.CommandLineRunner;
@@ -10,8 +12,11 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.time.LocalDateTime;
+
 @Configuration
 public class DataInitializer {
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -20,8 +25,10 @@ public class DataInitializer {
     @Bean
     CommandLineRunner initDatabase(UserRepository userRepository,
                                    ProjectRepository projectRepository,
+                                   DonationRepository donationRepository,
                                    PasswordEncoder encoder) {
         return args -> {
+            // 1. Створення користувача
             if (userRepository.count() == 0) {
                 User user = new User();
                 user.setName("Володимир");
@@ -32,6 +39,7 @@ public class DataInitializer {
                 userRepository.save(user);
             }
 
+            // 2. Створення проєктів
             if (projectRepository.count() == 0) {
                 EcoProject p1 = new EcoProject();
                 p1.setTitle("Очищення Дніпра");
@@ -88,7 +96,22 @@ public class DataInitializer {
                 p5.setStatus("ACTIVE");
                 projectRepository.save(p5);
 
-                System.out.println("✅ База заповнена: 5 різних проєктів додано");
+                System.out.println("✅ База заповнена: 5 проєктів додано");
+            }
+
+            // 3. Створення донату (виконується після того, як юзери та проєкти вже існують)
+            if (donationRepository.count() == 0) {
+                User testUser = userRepository.findAll().get(0);
+                EcoProject testProject = projectRepository.findAll().get(0);
+
+                Donation donation = new Donation();
+                donation.setAmount(500.0);
+                donation.setUser(testUser);
+                donation.setProject(testProject);
+                donation.setCreatedAt(LocalDateTime.now());
+
+                donationRepository.save(donation);
+                System.out.println("✅ Тестовий донат додано!");
             }
 
             System.out.println("-----------------------------------------");
