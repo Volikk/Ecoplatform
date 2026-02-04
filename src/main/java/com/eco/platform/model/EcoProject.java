@@ -1,11 +1,6 @@
 package com.eco.platform.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
-import jakarta.persistence.GenerationType;
-
+import jakarta.persistence.*;
 
 @Entity
 @Table(name = "projects")
@@ -24,6 +19,15 @@ public class EcoProject {
     private Double currentAmount = 0.0;
     private String status;
     private String category;
+
+    @Column(columnDefinition = "TEXT")
+    private String fullDescription;
+
+    @Column(columnDefinition = "TEXT")
+    private String goals;
+
+    private Integer volunteersNeeded;
+    private Integer volunteersActive;
 
     public EcoProject() {}
 
@@ -51,10 +55,19 @@ public class EcoProject {
     public void setStatus(String status) { this.status = status; }
     public String getStatus() { return status; }
 
-    public void setCategory(String category) {
-        this.category = category;
-    }
-    public String getCategory() {
-        return category;
-    }
+    public void setCategory(String category) { this.category = category; }
+    public String getCategory() { return category; }
+
+    // --- ДОДАЙ ЦІ НОВІ МЕТОДИ (щоб прибрати червоне в DataInitializer) ---
+    public String getFullDescription() { return fullDescription; }
+    public void setFullDescription(String fullDescription) { this.fullDescription = fullDescription; }
+
+    public String getGoals() { return goals; }
+    public void setGoals(String goals) { this.goals = goals; }
+
+    public Integer getVolunteersNeeded() { return volunteersNeeded; }
+    public void setVolunteersNeeded(Integer volunteersNeeded) { this.volunteersNeeded = volunteersNeeded; }
+
+    public Integer getVolunteersActive() { return volunteersActive; }
+    public void setVolunteersActive(Integer volunteersActive) { this.volunteersActive = volunteersActive; }
 }

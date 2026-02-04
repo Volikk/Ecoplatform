@@ -28,7 +28,6 @@ public class DataInitializer {
                                    DonationRepository donationRepository,
                                    PasswordEncoder encoder) {
         return args -> {
-            // 1. Створення користувача
             if (userRepository.count() == 0) {
                 User user = new User();
                 user.setName("Володимир");
@@ -39,67 +38,43 @@ public class DataInitializer {
                 userRepository.save(user);
             }
 
-            // 2. Створення проєктів
             if (projectRepository.count() == 0) {
-                EcoProject p1 = new EcoProject();
-                p1.setTitle("Очищення Дніпра");
-                p1.setShortDescription("Масштабна акція з очищення берегової лінії від пластику та скла.");
-                p1.setCategory("Екологія");
-                p1.setCity("Київ");
-                p1.setImageUrl("https://picsum.photos/id/101/400/300");
-                p1.setGoalAmount(50000.0);
-                p1.setCurrentAmount(12500.0);
-                p1.setStatus("ACTIVE");
-                projectRepository.save(p1);
+                String[] titles = {
+                        "Очищення Дніпра", "Притулок 'Лапа'", "Еко-лекторій", "Інклюзивний майданчик", "Продуктові набори",
+                        "Сонячні панелі для школи", "Відновлення лісу", "Велодоріжки міста", "Зелений дах", "Очищення озер",
+                        "Еко-фестиваль", "Сортування в офісі", "Захист бджіл", "Чисте повітря", "Вертикальні сади"
+                };
 
-                EcoProject p2 = new EcoProject();
-                p2.setTitle("Притулок 'Лапа'");
-                p2.setShortDescription("Збір коштів на закупівлю зимових вольєрів та корму для тварин.");
-                p2.setCategory("Тварини");
-                p2.setCity("Львів");
-                p2.setImageUrl("https://picsum.photos/id/102/400/300");
-                p2.setGoalAmount(30000.0);
-                p2.setCurrentAmount(28000.0);
-                p2.setStatus("ACTIVE");
-                projectRepository.save(p2);
+                String[] descriptions = {
+                        "Масштабна акція з очищення берегової лінії.", "Збір коштів на закупівлю зимових вольєрів.", "Курс лекцій для школярів.",
+                        "Створення безпечного простору для ігор.", "Допомога літнім людям.", "Встановлення автономного живлення.",
+                        "Висадка 1000 дубів у передмісті.", "Маркування нових веломаршрутів.", "Створення саду на даху бібліотеки.",
+                        "Очищення місцевих водойм від очерету.", "Організація заходу про сталий розвиток.", "Встановлення баків для паперу та пластику.",
+                        "Створення безпечних зон для запилювачів.", "Моніторинг якості повітря в районі.", "Озеленення фасадів будинків."
+                };
 
-                EcoProject p3 = new EcoProject();
-                p3.setTitle("Еко-лекторій");
-                p3.setShortDescription("Курс лекцій для школярів про сортування сміття.");
-                p3.setCategory("Освіта");
-                p3.setCity("Одеса");
-                p3.setImageUrl("https://picsum.photos/id/103/400/300");
-                p3.setGoalAmount(10000.0);
-                p3.setCurrentAmount(10000.0);
-                p3.setStatus("COMPLETED");
-                projectRepository.save(p3);
+                for (int i = 0; i < titles.length; i++) {
+                    EcoProject p = new EcoProject();
+                    p.setTitle(titles[i]);
+                    p.setShortDescription(descriptions[i]);
 
-                EcoProject p4 = new EcoProject();
-                p4.setTitle("Інклюзивний майданчик");
-                p4.setShortDescription("Створення безпечного простору для ігор дітей з інвалідністю.");
-                p4.setCategory("Соціум");
-                p4.setCity("Харків");
-                p4.setImageUrl("https://picsum.photos/id/104/400/300");
-                p4.setGoalAmount(150000.0);
-                p4.setCurrentAmount(45000.0);
-                p4.setStatus("ACTIVE");
-                projectRepository.save(p4);
+                    p.setFullDescription("Це детальний опис проєкту '" + titles[i] + "'. Ми прагнемо змінити світ на краще через локальні еко-ініціативи.");
+                    p.setGoals("1. Залучити громаду; 2. Зібрати необхідні кошти; 3. Реалізувати план робіт.");
+                    p.setVolunteersNeeded(10 + (i * 3));
+                    p.setVolunteersActive(2 + i);
 
-                EcoProject p5 = new EcoProject();
-                p5.setTitle("Продуктові набори");
-                p5.setShortDescription("Допомога літнім людям, що опинилися у скрутному становищі.");
-                p5.setCategory("Гуманітарна допомога");
-                p5.setCity("Київ");
-                p5.setImageUrl("https://picsum.photos/id/105/400/300");
-                p5.setGoalAmount(20000.0);
-                p5.setCurrentAmount(500.0);
-                p5.setStatus("ACTIVE");
-                projectRepository.save(p5);
+                    p.setCategory(i % 3 == 0 ? "Екологія" : (i % 3 == 1 ? "Соціум" : "Освіта"));
+                    p.setCity(i % 2 == 0 ? "Київ" : "Львів");
+                    p.setImageUrl("https://picsum.photos/id/" + (100 + i) + "/400/300");
+                    p.setGoalAmount(10000.0 * (i + 1));
+                    p.setCurrentAmount(5000.0 * i);
+                    p.setStatus(i == 2 ? "COMPLETED" : "ACTIVE");
 
-                System.out.println("✅ База заповнена: 5 проєктів додано");
+                    projectRepository.save(p);
+                }
+                System.out.println("Створенно 15 проектів");
             }
 
-            // 3. Створення донату (виконується після того, як юзери та проєкти вже існують)
             if (donationRepository.count() == 0) {
                 User testUser = userRepository.findAll().get(0);
                 EcoProject testProject = projectRepository.findAll().get(0);

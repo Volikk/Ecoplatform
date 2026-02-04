@@ -1,34 +1,29 @@
 package com.eco.platform.controller;
 
-import com.eco.platform.model.EcoProject;
-import com.eco.platform.repository.ProjectRepository;
-import org.springframework.http.ResponseEntity;
+import com.eco.platform.dto.ProjectResponseDto;
+import com.eco.platform.service.ProjectService;
 import org.springframework.web.bind.annotation.*;
+
 import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/projects")
+@CrossOrigin(origins = "*")
 public class ProjectController {
 
-    private final ProjectRepository projectRepository;
+    private final ProjectService projectService;
 
-    public ProjectController(ProjectRepository projectRepository) {
-        this.projectRepository = projectRepository;
+    public ProjectController(ProjectService projectService) {
+        this.projectService = projectService;
     }
 
     @GetMapping
-    public List<EcoProject> getProjects(
-            @RequestParam(required = false) String category,
-            @RequestParam(required = false) String city,
-            @RequestParam(required = false) String status) {
-
-        return projectRepository.findAll();
+    public List<ProjectResponseDto> getAll() {
+        return projectService.getAllProjects();
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<EcoProject> getById(@PathVariable Long id) {
-        return projectRepository.findById(id)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public ProjectResponseDto getById(@PathVariable Long id) {
+        return projectService.getProjectById(id);
     }
 }
