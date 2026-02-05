@@ -65,7 +65,7 @@ public class DataInitializer {
 
                     p.setCategory(i % 3 == 0 ? "Екологія" : (i % 3 == 1 ? "Соціум" : "Освіта"));
                     p.setCity(i % 2 == 0 ? "Київ" : "Львів");
-                    p.setImageUrl("https://picsum.photos/id/" + (100 + i) + "/400/300");
+                    p.setImageUrl("https://picsum.photos/seed/" + i + "/400/300");
                     p.setGoalAmount(10000.0 * (i + 1));
                     p.setCurrentAmount(5000.0 * i);
                     p.setStatus(i == 2 ? "COMPLETED" : "ACTIVE");
