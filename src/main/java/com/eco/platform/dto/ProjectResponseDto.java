@@ -1,5 +1,7 @@
 package com.eco.platform.dto;
 
+import java.util.List;
+
 public class ProjectResponseDto {
     private Long id;
     private String title;
@@ -11,10 +13,12 @@ public class ProjectResponseDto {
     private Double goalAmount;
     private Double currentAmount;
     private String status;
-    private String goals;
+    private List<GoalDto> goals;
     private Integer volunteersNeeded;
     private Integer volunteersActive;
     private Double progress;
+    private String readyToHelpTitle;
+    private String readyToHelpDescription;
 
     public ProjectResponseDto() {}
 
@@ -48,8 +52,14 @@ public class ProjectResponseDto {
     public String getStatus() { return status; }
     public void setStatus(String status) { this.status = status; }
 
-    public String getGoals() { return goals; }
-    public void setGoals(String goals) { this.goals = goals; }
+    public List<GoalDto> getGoals() { return goals; }
+    public void setGoals(List<GoalDto> goals) { this.goals = goals; }
+
+    public String getReadyToHelpTitle() { return readyToHelpTitle; }
+    public void setReadyToHelpTitle(String readyToHelpTitle) { this.readyToHelpTitle = readyToHelpTitle; }
+
+    public String getReadyToHelpDescription() { return readyToHelpDescription; }
+    public void setReadyToHelpDescription(String readyToHelpDescription) { this.readyToHelpDescription = readyToHelpDescription; }
 
     public Integer getVolunteersNeeded() { return volunteersNeeded; }
     public void setVolunteersNeeded(Integer volunteersNeeded) { this.volunteersNeeded = volunteersNeeded; }

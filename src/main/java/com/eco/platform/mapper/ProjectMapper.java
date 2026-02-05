@@ -1,8 +1,10 @@
 package com.eco.platform.mapper;
 
+import com.eco.platform.dto.GoalDto;
 import com.eco.platform.dto.ProjectResponseDto;
 import com.eco.platform.model.EcoProject;
 import org.springframework.stereotype.Component;
+import java.util.List;
 
 @Component
 public class ProjectMapper {
@@ -19,16 +21,18 @@ public class ProjectMapper {
         dto.setGoalAmount(project.getGoalAmount());
         dto.setCurrentAmount(project.getCurrentAmount());
         dto.setStatus(project.getStatus());
-        dto.setGoals(project.getGoals());
         dto.setVolunteersNeeded(project.getVolunteersNeeded());
         dto.setVolunteersActive(project.getVolunteersActive());
 
-        if (project.getGoalAmount() != null && project.getGoalAmount() > 0) {
-            double percentage = (project.getCurrentAmount() / project.getGoalAmount()) * 100;
-            dto.setProgress(Math.round(percentage * 10.0) / 10.0);
-        } else {
-            dto.setProgress(0.0);
-        }
+        dto.setGoals(List.of(
+                new GoalDto("Залучити громаду", "Організація волонтерських груп та розповсюдження інформації."),
+                new GoalDto("Зібрати кошти", "Закупівля необхідного обладнання та матеріалів для реалізації."),
+                new GoalDto("Реалізувати план", "Безпосереднє виконання робіт згідно з екологічними стандартами.")
+        ));
+
+        // 2. Додаємо мотиваційний блок (Ready to help)
+        dto.setReadyToHelpTitle("Готовий допомогти?");
+        dto.setReadyToHelpDescription("Твоя участь — це реальний крок до чистого довкілля. Приєднуйся до нас!");
 
         return dto;
     }
