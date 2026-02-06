@@ -1,5 +1,6 @@
 package com.eco.platform.controller;
 
+import com.eco.platform.dto.PlatformStatsDto;
 import com.eco.platform.dto.ProjectResponseDto;
 import com.eco.platform.service.ProjectService;
 import org.springframework.web.bind.annotation.*;
@@ -25,5 +26,10 @@ public class ProjectController {
     @GetMapping("/{id}")
     public ProjectResponseDto getById(@PathVariable Long id) {
         return projectService.getProjectById(id);
+    }
+
+    @GetMapping("/stats")
+    public PlatformStatsDto getStats() {
+        return projectService.getPlatformStats();
     }
 }

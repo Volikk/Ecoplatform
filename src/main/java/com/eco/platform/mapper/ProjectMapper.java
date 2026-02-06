@@ -15,7 +15,13 @@ public class ProjectMapper {
         dto.setTitle(project.getTitle());
         dto.setShortDescription(project.getShortDescription());
         dto.setFullDescription(project.getFullDescription());
-        dto.setImageUrl(project.getImageUrl());
+
+        String seed = "project-" + project.getId();
+        dto.setImageUrl("https://picsum.photos/seed/" + seed + "/400/300");
+        dto.setImageDesktop("https://picsum.photos/seed/" + seed + "/1400/800");
+        dto.setImageTablet("https://picsum.photos/seed/" + seed + "/800/600");
+        dto.setImageMobile("https://picsum.photos/seed/" + seed + "/400/300");
+
         dto.setCategory(project.getCategory());
         dto.setCity(project.getCity());
         dto.setGoalAmount(project.getGoalAmount());
@@ -30,7 +36,6 @@ public class ProjectMapper {
                 new GoalDto("Реалізувати план", "Безпосереднє виконання робіт згідно з екологічними стандартами.")
         ));
 
-        // 2. Додаємо мотиваційний блок (Ready to help)
         dto.setReadyToHelpTitle("Готовий допомогти?");
         dto.setReadyToHelpDescription("Твоя участь — це реальний крок до чистого довкілля. Приєднуйся до нас!");
 

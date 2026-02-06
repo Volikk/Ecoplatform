@@ -19,6 +19,9 @@ public class ProjectResponseDto {
     private Double progress;
     private String readyToHelpTitle;
     private String readyToHelpDescription;
+    private String imageDesktop;
+    private String imageTablet;
+    private String imageMobile;
 
     public ProjectResponseDto() {}
 
@@ -69,4 +72,13 @@ public class ProjectResponseDto {
 
     public Double getProgress() { return progress; }
     public void setProgress(Double progress) { this.progress = progress; }
+
+    public String getImageDesktop() { return imageDesktop; }
+    public void setImageDesktop(String imageDesktop) { this.imageDesktop = imageDesktop; }
+
+    public String getImageTablet() { return imageTablet; }
+    public void setImageTablet(String imageTablet) { this.imageTablet = imageTablet; }
+
+    public String getImageMobile() { return imageMobile; }
+    public void setImageMobile(String imageMobile) { this.imageMobile = imageMobile; }
 }
