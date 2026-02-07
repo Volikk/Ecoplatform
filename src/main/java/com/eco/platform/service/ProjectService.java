@@ -39,7 +39,7 @@ public class ProjectService {
         long totalProjects = projects.size();
         double totalMoney = projects.stream().mapToDouble(p -> p.getCurrentAmount() != null ? p.getCurrentAmount() : 0.0).sum();
         int totalVolunteers = projects.stream().mapToInt(p -> p.getVolunteersActive() != null ? p.getVolunteersActive() : 0).sum();
-        int ecologyPoints = (int) projects.stream().filter(p -> "COMPLETED".equals(p.getStatus())).count() * 50; // Наприклад, 50 балів за проект
+        int ecologyPoints = (int) projects.stream().filter(p -> "COMPLETED".equals(p.getStatus())).count() * 50;
 
         return new PlatformStatsDto(totalProjects, totalMoney, totalVolunteers, ecologyPoints);
     }

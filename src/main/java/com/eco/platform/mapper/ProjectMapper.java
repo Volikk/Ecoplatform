@@ -17,7 +17,6 @@ public class ProjectMapper {
         dto.setFullDescription(project.getFullDescription());
 
         String seed = "project-" + project.getId();
-        dto.setImageUrl("https://picsum.photos/seed/" + seed + "/400/300");
         dto.setImageDesktop("https://picsum.photos/seed/" + seed + "/1400/800");
         dto.setImageTablet("https://picsum.photos/seed/" + seed + "/800/600");
         dto.setImageMobile("https://picsum.photos/seed/" + seed + "/400/300");
