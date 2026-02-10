@@ -1,6 +1,7 @@
 package com.eco.platform.service;
 
 import com.eco.platform.dto.PlatformStatsDto;
+import com.eco.platform.dto.ProjectRequestDto;
 import com.eco.platform.dto.ProjectResponseDto;
 import com.eco.platform.exception.ResourceNotFoundException;
 import com.eco.platform.mapper.ProjectMapper;
@@ -42,5 +43,27 @@ public class ProjectService {
         int ecologyPoints = (int) projects.stream().filter(p -> "COMPLETED".equals(p.getStatus())).count() * 50;
 
         return new PlatformStatsDto(totalProjects, totalMoney, totalVolunteers, ecologyPoints);
+    }
+
+    public ProjectResponseDto createProject(ProjectRequestDto dto) {
+        EcoProject project = new EcoProject();
+
+        project.setTitle(dto.getTitle());
+        project.setShortDescription(dto.getShortDescription());
+        project.setFullDescription(dto.getFullDescription());
+        project.setCategory(dto.getCategory());
+        project.setCity(dto.getCity());
+        project.setGoalAmount(dto.getGoalAmount());
+        project.setVolunteersNeeded(dto.getVolunteersNeeded());
+        project.setImageUrl(dto.getImageUrl());
+
+        project.setCurrentAmount(0.0);
+        project.setVolunteersActive(0);
+        project.setStatus("ACTIVE");
+        project.setGoals("1. Залучити громаду; 2. Реалізувати план.");
+
+        EcoProject savedProject = projectRepository.save(project);
+
+        return projectMapper.toDto(savedProject);
     }
 }

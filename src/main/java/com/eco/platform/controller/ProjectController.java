@@ -1,10 +1,10 @@
 package com.eco.platform.controller;
 
 import com.eco.platform.dto.PlatformStatsDto;
+import com.eco.platform.dto.ProjectRequestDto;
 import com.eco.platform.dto.ProjectResponseDto;
 import com.eco.platform.service.ProjectService;
 import org.springframework.web.bind.annotation.*;
-
 import java.util.List;
 
 @RestController
@@ -31,5 +31,10 @@ public class ProjectController {
     @GetMapping("/stats")
     public PlatformStatsDto getStats() {
         return projectService.getPlatformStats();
+    }
+
+    @PostMapping
+    public ProjectResponseDto create(@RequestBody ProjectRequestDto requestDto) {
+        return projectService.createProject(requestDto);
     }
 }
