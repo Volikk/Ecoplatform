@@ -50,26 +50,21 @@ public class ProjectService {
 
         project.setTitle(dto.getTitle());
         project.setShortDescription(dto.getShortDescription());
-        project.setFullDescription(dto.getFullDescription());
+        project.setGoals(dto.getGoals());
         project.setCategory(dto.getCategory());
-
-        project.setCity(dto.getCity());
-
         project.setContactEmail(dto.getContactEmail());
         project.setDuration(dto.getDuration());
-
-        project.setGoals(dto.getGoals());
-
         project.setGoalAmount(dto.getGoalAmount());
-        project.setVolunteersNeeded(dto.getVolunteersNeeded());
         project.setImageUrl(dto.getImageUrl());
 
         project.setCurrentAmount(0.0);
         project.setVolunteersActive(0);
+        project.setVolunteersNeeded(0);
         project.setStatus("ACTIVE");
+        project.setFullDescription(dto.getShortDescription());
+        project.setCity("Не вказано");
 
         EcoProject savedProject = projectRepository.save(project);
-
         return projectMapper.toDto(savedProject);
     }
 }
