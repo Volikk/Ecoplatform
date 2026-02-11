@@ -52,7 +52,14 @@ public class ProjectService {
         project.setShortDescription(dto.getShortDescription());
         project.setFullDescription(dto.getFullDescription());
         project.setCategory(dto.getCategory());
+
         project.setCity(dto.getCity());
+
+        project.setContactEmail(dto.getContactEmail());
+        project.setDuration(dto.getDuration());
+
+        project.setGoals(dto.getGoals());
+
         project.setGoalAmount(dto.getGoalAmount());
         project.setVolunteersNeeded(dto.getVolunteersNeeded());
         project.setImageUrl(dto.getImageUrl());
@@ -60,7 +67,6 @@ public class ProjectService {
         project.setCurrentAmount(0.0);
         project.setVolunteersActive(0);
         project.setStatus("ACTIVE");
-        project.setGoals("1. Залучити громаду; 2. Реалізувати план.");
 
         EcoProject savedProject = projectRepository.save(project);
 

@@ -13,12 +13,12 @@ public class EcoProject {
     private String shortDescription;
     private String imageUrl;
     private String city;
-    private Double lat;
-    private Double lng;
     private Double goalAmount;
     private Double currentAmount = 0.0;
     private String status;
     private String category;
+    private String contactEmail;
+    private String duration;
 
     @Column(columnDefinition = "TEXT")
     private String fullDescription;
@@ -28,6 +28,7 @@ public class EcoProject {
 
     private Integer volunteersNeeded;
     private Integer volunteersActive;
+
 
     public EcoProject() {}
 
@@ -53,21 +54,63 @@ public class EcoProject {
     public Double getCurrentAmount() { return currentAmount; }
 
     public void setStatus(String status) { this.status = status; }
-    public String getStatus() { return status; }
+    public String getStatus() {
+        return status;
+    }
 
-    public void setCategory(String category) { this.category = category; }
-    public String getCategory() { return category; }
+    public void setCategory(String category) {
+        this.category = category;
+    }
 
-    // --- ДОДАЙ ЦІ НОВІ МЕТОДИ (щоб прибрати червоне в DataInitializer) ---
-    public String getFullDescription() { return fullDescription; }
-    public void setFullDescription(String fullDescription) { this.fullDescription = fullDescription; }
+    public String getCategory() {
+        return category;
+    }
 
-    public String getGoals() { return goals; }
-    public void setGoals(String goals) { this.goals = goals; }
+    public String getFullDescription() {
+        return fullDescription;
+    }
 
-    public Integer getVolunteersNeeded() { return volunteersNeeded; }
-    public void setVolunteersNeeded(Integer volunteersNeeded) { this.volunteersNeeded = volunteersNeeded; }
+    public void setFullDescription(String fullDescription) {
+        this.fullDescription = fullDescription;
+    }
 
-    public Integer getVolunteersActive() { return volunteersActive; }
-    public void setVolunteersActive(Integer volunteersActive) { this.volunteersActive = volunteersActive; }
+    public String getGoals() {
+        return goals;
+    }
+
+    public void setGoals(String goals) {
+        this.goals = goals;
+    }
+
+    public Integer getVolunteersNeeded() {
+        return volunteersNeeded;
+    }
+
+    public void setVolunteersNeeded(Integer volunteersNeeded) {
+        this.volunteersNeeded = volunteersNeeded;
+    }
+
+    public Integer getVolunteersActive() {
+        return volunteersActive;
+    }
+
+    public void setVolunteersActive(Integer volunteersActive) {
+        this.volunteersActive = volunteersActive;
+    }
+
+    public String getContactEmail() {
+        return contactEmail;
+    }
+
+    public void setContactEmail(String contactEmail) {
+        this.contactEmail = contactEmail;
+    }
+
+    public String getDuration() {
+        return duration;
+    }
+
+    public void setDuration(String duration) {
+        this.duration = duration;
+    }
 }
