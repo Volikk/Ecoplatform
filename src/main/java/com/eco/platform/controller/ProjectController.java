@@ -56,4 +56,9 @@ public class ProjectController {
             @RequestParam ProjectStatus status) {
         return ResponseEntity.ok(projectService.updateStatus(id, status));
     }
+
+    @PostMapping
+    public ResponseEntity<ProjectResponseDto> requestProject(@RequestBody ProjectRequestDto requestDto) {
+        return ResponseEntity.status(201).body(projectService.createProject(requestDto));
+    }
 }
