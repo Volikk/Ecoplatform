@@ -2,13 +2,11 @@ package com.eco.platform.controller;
 
 import com.eco.platform.model.*;
 import com.eco.platform.repository.*;
-import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/forms")
-@RequiredArgsConstructor
 @CrossOrigin(origins = "*")
 public class FormController {
 
@@ -16,6 +14,16 @@ public class FormController {
     private final ProjectMessageRepository projectMsgRepo;
     private final ContactInquiryRepository contactRepo;
     private final HelpRequestRepository helpRepo;
+
+    public FormController(NewsletterRepository newsletterRepo,
+                          ProjectMessageRepository projectMsgRepo,
+                          ContactInquiryRepository contactRepo,
+                          HelpRequestRepository helpRepo) {
+        this.newsletterRepo = newsletterRepo;
+        this.projectMsgRepo =projectMsgRepo;
+        this.contactRepo = contactRepo;
+        this.helpRepo = helpRepo;
+    }
 
     @PostMapping("/newsletter")
     public ResponseEntity<?> subscribe(@RequestBody Newsletter sub) {

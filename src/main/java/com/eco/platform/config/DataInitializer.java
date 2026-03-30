@@ -2,6 +2,7 @@ package com.eco.platform.config;
 
 import com.eco.platform.model.Donation;
 import com.eco.platform.model.EcoProject;
+import com.eco.platform.model.ProjectStatus;
 import com.eco.platform.model.User;
 import com.eco.platform.repository.DonationRepository;
 import com.eco.platform.repository.UserRepository;
@@ -68,7 +69,7 @@ public class DataInitializer {
                     p.setImageUrl("https://picsum.photos/seed/" + i + "/400/300");
                     p.setGoalAmount(10000.0 * (i + 1));
                     p.setCurrentAmount(5000.0 * i);
-                    p.setStatus(i == 2 ? "COMPLETED" : "ACTIVE");
+                    p.setStatus(i == 2 ? ProjectStatus.COMPLETED : ProjectStatus.ACTIVE);
 
                     projectRepository.save(p);
                 }

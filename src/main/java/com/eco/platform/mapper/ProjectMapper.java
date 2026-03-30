@@ -25,7 +25,7 @@ public class ProjectMapper {
         dto.setCity(project.getCity());
         dto.setGoalAmount(project.getGoalAmount());
         dto.setCurrentAmount(project.getCurrentAmount());
-        dto.setStatus(project.getStatus());
+        dto.setStatus(project.getStatus().name());
         dto.setVolunteersNeeded(project.getVolunteersNeeded());
         dto.setVolunteersActive(project.getVolunteersActive());
 

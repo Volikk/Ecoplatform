@@ -15,7 +15,6 @@ public class EcoProject {
     private String city;
     private Double goalAmount;
     private Double currentAmount = 0.0;
-    private String status;
     private String category;
     private String contactEmail;
     private String duration;
@@ -28,6 +27,10 @@ public class EcoProject {
 
     private Integer volunteersNeeded;
     private Integer volunteersActive;
+
+    @Enumerated(EnumType.STRING)
+    @Column(nullable = false)
+    private ProjectStatus status = ProjectStatus.PENDING;
 
 
     public EcoProject() {}
@@ -53,10 +56,8 @@ public class EcoProject {
     public void setCurrentAmount(Double currentAmount) { this.currentAmount = currentAmount; }
     public Double getCurrentAmount() { return currentAmount; }
 
-    public void setStatus(String status) { this.status = status; }
-    public String getStatus() {
-        return status;
-    }
+    public ProjectStatus getStatus() { return status; }
+    public void setStatus(ProjectStatus status) { this.status = status; }
 
     public void setCategory(String category) {
         this.category = category;

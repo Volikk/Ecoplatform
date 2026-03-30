@@ -6,6 +6,7 @@ import com.eco.platform.dto.ProjectResponseDto;
 import com.eco.platform.exception.ResourceNotFoundException;
 import com.eco.platform.mapper.ProjectMapper;
 import com.eco.platform.model.EcoProject;
+import com.eco.platform.model.ProjectStatus;
 import com.eco.platform.repository.ProjectRepository;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -23,7 +24,21 @@ public class ProjectService {
     }
 
     public List<ProjectResponseDto> getAllProjects() {
+        return projectRepository.findByStatusIn(
+                        List.of(ProjectStatus.APPROVED, ProjectStatus.ACTIVE)
+                ).stream()
+                .map(projectMapper::toDto)
+                .collect(Collectors.toList());
+    }
+
+    public List<ProjectResponseDto> getAllProjectsForAdmin() {
         return projectRepository.findAll().stream()
+                .map(projectMapper::toDto)
+                .collect(Collectors.toList());
+    }
+
+    public List<ProjectResponseDto> getPendingProjects() {
+        return projectRepository.findByStatus(ProjectStatus.PENDING).stream()
                 .map(projectMapper::toDto)
                 .collect(Collectors.toList());
     }
@@ -38,9 +53,15 @@ public class ProjectService {
         List<EcoProject> projects = projectRepository.findAll();
 
         long totalProjects = projects.size();
-        double totalMoney = projects.stream().mapToDouble(p -> p.getCurrentAmount() != null ? p.getCurrentAmount() : 0.0).sum();
-        int totalVolunteers = projects.stream().mapToInt(p -> p.getVolunteersActive() != null ? p.getVolunteersActive() : 0).sum();
-        int ecologyPoints = (int) projects.stream().filter(p -> "COMPLETED".equals(p.getStatus())).count() * 50;
+        double totalMoney = projects.stream()
+                .mapToDouble(p -> p.getCurrentAmount() != null ? p.getCurrentAmount() : 0.0)
+                .sum();
+        int totalVolunteers = projects.stream()
+                .mapToInt(p -> p.getVolunteersActive() != null ? p.getVolunteersActive() : 0)
+                .sum();
+        int ecologyPoints = (int) projects.stream()
+                .filter(p -> ProjectStatus.COMPLETED == p.getStatus()) // ← enum порівняння
+                .count() * 50;
 
         return new PlatformStatsDto(totalProjects, totalMoney, totalVolunteers, ecologyPoints);
     }
@@ -60,11 +81,19 @@ public class ProjectService {
         project.setCurrentAmount(0.0);
         project.setVolunteersActive(0);
         project.setVolunteersNeeded(0);
-        project.setStatus("ACTIVE");
+        project.setStatus(ProjectStatus.PENDING);
         project.setFullDescription(dto.getShortDescription());
         project.setCity("Не вказано");
 
         EcoProject savedProject = projectRepository.save(project);
         return projectMapper.toDto(savedProject);
+    }
+
+    public ProjectResponseDto updateStatus(Long id, ProjectStatus newStatus) {
+        EcoProject project = projectRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Проєкт не знайдено з ID: " + id));
+
+        project.setStatus(newStatus);
+        return projectMapper.toDto(projectRepository.save(project));
     }
 }
