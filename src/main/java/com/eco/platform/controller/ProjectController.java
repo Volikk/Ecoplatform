@@ -57,7 +57,7 @@ public class ProjectController {
         return ResponseEntity.ok(projectService.updateStatus(id, status));
     }
 
-    @PostMapping
+    @PostMapping("/project-request")
     public ResponseEntity<ProjectResponseDto> requestProject(@RequestBody ProjectRequestDto requestDto) {
         return ResponseEntity.status(201).body(projectService.createProject(requestDto));
     }
