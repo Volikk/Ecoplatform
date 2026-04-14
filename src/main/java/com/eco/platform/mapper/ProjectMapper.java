@@ -25,7 +25,7 @@ public class ProjectMapper {
         dto.setCity(project.getCity());
         dto.setGoalAmount(project.getGoalAmount());
         dto.setCurrentAmount(project.getCurrentAmount());
-        dto.setStatus(project.getStatus().name());
+        dto.setStatus(project.getStatus() != null ? project.getStatus().name() : "PENDING");
         dto.setVolunteersNeeded(project.getVolunteersNeeded());
         dto.setVolunteersActive(project.getVolunteersActive());
 
