@@ -9,6 +9,7 @@ public class ProjectRequestDto {
     private Double goalAmount;
     private String duration;
     private String imageUrl;
+    private String city;
 
     public ProjectRequestDto() {}
 
@@ -35,4 +36,7 @@ public class ProjectRequestDto {
 
     public String getImageUrl() { return imageUrl; }
     public void setImageUrl(String imageUrl) { this.imageUrl = imageUrl; }
+
+    public String getCity() { return city; }
+    public void setCity(String city) { this.city = city; }
 }

@@ -28,6 +28,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/v1/projects/**").permitAll()
                         .requestMatchers("/api/v1/contacts/**").permitAll()
                         .requestMatchers("/api/v1/upload/**").permitAll()
+                        .requestMatchers("/api/v1/requests/**").permitAll()
                         .anyRequest().authenticated()
                 )
 

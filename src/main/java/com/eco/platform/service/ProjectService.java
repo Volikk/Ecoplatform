@@ -60,7 +60,7 @@ public class ProjectService {
                 .mapToInt(p -> p.getVolunteersActive() != null ? p.getVolunteersActive() : 0)
                 .sum();
         int ecologyPoints = (int) projects.stream()
-                .filter(p -> ProjectStatus.COMPLETED == p.getStatus()) // ← enum порівняння
+                .filter(p -> ProjectStatus.COMPLETED == p.getStatus())
                 .count() * 50;
 
         return new PlatformStatsDto(totalProjects, totalMoney, totalVolunteers, ecologyPoints);
@@ -69,24 +69,36 @@ public class ProjectService {
     public ProjectResponseDto createProject(ProjectRequestDto dto) {
         EcoProject project = new EcoProject();
 
-        project.setTitle(dto.getTitle());
+        project.setTitle(dto.getTitle() != null ? dto.getTitle() : "Без назви");
         project.setShortDescription(dto.getShortDescription());
-        project.setGoals(dto.getGoals());
+
+        if (dto.getGoals() != null) {
+            project.setGoals(dto.getGoals().toString());
+        } else {
+            project.setGoals("Цілі не вказано");
+        }
+
         project.setCategory(dto.getCategory());
         project.setContactEmail(dto.getContactEmail());
         project.setDuration(dto.getDuration());
-        project.setGoalAmount(dto.getGoalAmount());
-        project.setImageUrl(dto.getImageUrl());
 
+        project.setGoalAmount(dto.getGoalAmount() != null ? dto.getGoalAmount() : 0.0);
         project.setCurrentAmount(0.0);
         project.setVolunteersActive(0);
         project.setVolunteersNeeded(0);
+
         project.setStatus(ProjectStatus.PENDING);
         project.setFullDescription(dto.getShortDescription());
-        project.setCity("Не вказано");
+        project.setCity(dto.getCity() != null ? dto.getCity() : "Не вказано");
+        project.setImageUrl(dto.getImageUrl());
 
-        EcoProject savedProject = projectRepository.save(project);
-        return projectMapper.toDto(savedProject);
+        try {
+            EcoProject savedProject = projectRepository.save(project);
+            return projectMapper.toDto(savedProject);
+        } catch (Exception e) {
+            System.err.println("ПОМИЛКА ЗБЕРЕЖЕННЯ: " + e.getMessage());
+            throw e;
+        }
     }
 
     public ProjectResponseDto updateStatus(Long id, ProjectStatus newStatus) {

@@ -26,8 +26,9 @@ public class ProjectMapper {
         dto.setGoalAmount(project.getGoalAmount());
         dto.setCurrentAmount(project.getCurrentAmount());
         dto.setStatus(project.getStatus() != null ? project.getStatus().name() : "PENDING");
-        dto.setVolunteersNeeded(project.getVolunteersNeeded());
-        dto.setVolunteersActive(project.getVolunteersActive());
+        dto.setVolunteersNeeded(project.getVolunteersNeeded() != null ? project.getVolunteersNeeded() : 0);
+        dto.setVolunteersActive(project.getVolunteersActive() != null ? project.getVolunteersActive() : 0);
+        dto.setGoalAmount(project.getGoalAmount() != null ? project.getGoalAmount() : 0.0);
 
         dto.setGoals(List.of(
                 new GoalDto("Залучити громаду", "Організація волонтерських груп та розповсюдження інформації."),
